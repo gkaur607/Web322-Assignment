@@ -1,0 +1,35 @@
+[
+  {
+    "id": 5,
+    "sector_id": 3,
+    "title": "Green Farming",
+    "feature_img_url": "https://example.com/img1.jpg",
+    "summary_short": "Improves soil quality",
+    "intro_short": "Intro to green farming",
+    "impact": "Reduces CO2",
+    "original_source_url": "https://source1.com",
+    "sector": "Food, Agriculture, and Land Use"
+  },
+  {
+    "id": 9,
+    "sector_id": 4,
+    "title": "Solar Panel Expansion",
+    "feature_img_url": "https://example.com/img2.jpg",
+    "summary_short": "More solar power",
+    "intro_short": "Expanding solar farms",
+    "impact": "Clean energy generation",
+    "original_source_url": "https://source2.com",
+    "sector": "Electricity"
+  },
+  {
+    "id": 10,
+    "sector_id": 3,
+    "title": "Urban Gardening",
+    "feature_img_url": "https://example.com/img3.jpg",
+    "summary_short": "Local food production",
+    "intro_short": "Growing food in cities",
+    "impact": "Less transportation emissions",
+    "original_source_url": "https://source3.com",
+    "sector": "Food, Agriculture, and Land Use"
+  }
+]
