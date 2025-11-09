@@ -1,62 +1,36 @@
 const projectData = require("../data/projectData");
 const sectorData = require("../data/sectorData");
 let projects = [];
+sector: matchedSector ? matchedSector.sector_name || matchedSector.name : "Unknown"
 
-function initialize() {
+module.exports.initialize = function () {
   return new Promise((resolve, reject) => {
-    try {
-      const data = require("../data/projects.json");
-      projects = data;
-      resolve();
-    } catch (err) {
-      reject("Unable to load projects: " + err);
-    }
+    projects = require("../data/projects.json");
+    resolve();
   });
-}
+};
 
-function getAllProjects() {
+module.exports.getAllProjects = function () {
   return new Promise((resolve, reject) => {
-    if (projects.length > 0) {
-      resolve(projects);
-    } else {
-      reject("No projects available.");
-    }
+    if (projects.length > 0) resolve(projects);
+    else reject("No projects available");
   });
-}
+};
 
-function getProjectById(projectId) {
+module.exports.getProjectById = function (id) {
   return new Promise((resolve, reject) => {
-    const found = projects.find(p => p.id == projectId);
-    if (found) {
-      resolve(found);
-    } else {
-      reject(`Project with id ${projectId} not found`);
-    }
+    const project = projects.find(p => p.id == id);
+    if (project) resolve(project);
+    else reject("No project found with that ID");
   });
-}
+};
 
-function getProjectsBySector(sector) {
+module.exports.getProjectsBySector = function (sector) {
   return new Promise((resolve, reject) => {
-    const lowerSector = sector.toLowerCase();
-    const matched = [];
-
-    projects.forEach(project => {
-      if (project.sector.toLowerCase().includes(lowerSector)) {
-        matched.push(project);
-      }
-    });
-
-    if (matched.length > 0) {
-      resolve(matched);
-    } else {
-      reject(`No projects found in sector: ${sector}`);
-    }
+    const filtered = projects.filter(
+      p => p.sector.toLowerCase() === sector.toLowerCase()
+    );
+    if (filtered.length > 0) resolve(filtered);
+    else reject("No projects found for this sector");
   });
-}
-
-module.exports = {
-  initialize,
-  getAllProjects,
-  getProjectById,
-  getProjectsBySector
 };

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Climate Solutions</title>
+  <link href="/css/main.css" rel="stylesheet">
+</head>
+
+<body class="bg-base-200">
+<%- include('partials/navbar', { page: '/' }) %>
+  <!-- Navbar -->
+    <!-- Main Container -->
+  <div class="container mx-auto mt-10 px-4">
+
+    <!-- Hero Section -->
+    <div class="hero bg-base-100 rounded-xl shadow-lg mb-10">
+      <div class="hero-content text-center">
+        <div class="max-w-xl">
+          <h1 class="text-4xl font-bold mb-4">Explore Climate Innovation Projects</h1>
+          <p class="py-2 text-lg">
+            Discover how different sectors are contributing to a more sustainable world.
+          </p>
+          <a href="/solutions/projects" class="btn btn-primary mt-4">View All Projects</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Project Cards Grid -->
+    <div class="grid md:grid-cols-3 gap-6">
+      
+      <!-- Card 1 -->
+      <div class="card bg-base-100 shadow-xl">
+        <figure>
+          <img src="/images/energy.jpg" alt="Renewable Energy Project">
+        </figure>
+        <div class="card-body">
+          <h2 class="card-title">Renewable Energy Initiative</h2>
+          <p>Developing affordable and efficient solar panels to power small communities.</p>
+          <div class="card-actions justify-end">
+            <a href="/solutions/projects/1" class="btn btn-outline btn-primary">Learn More</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="card bg-base-100 shadow-xl">
+        <figure>
+          <img src="/images/agriculture.jpg" alt="Smart Agriculture Project">
+        </figure>
+        <div class="card-body">
+          <h2 class="card-title">Smart Agriculture</h2>
+          <p>Implementing data-driven farming to reduce waste and improve yield sustainably.</p>
+          <div class="card-actions justify-end">
+            <a href="/solutions/projects/2" class="btn btn-outline btn-primary">Learn More</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="card bg-base-100 shadow-xl">
+        <figure>
+          <img src="/images/transport.png" alt="Eco Transport Project">
+        </figure>
+        <div class="card-body">
+          <h2 class="card-title">Eco-Friendly Transport</h2>
+          <p>Promoting green public transportation and electric vehicles in urban centers.</p>
+          <div class="card-actions justify-end">
+            <a href="/solutions/projects/3" class="btn btn-outline btn-primary">Learn More</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer footer-center p-4 bg-base-200 text-base-content mt-10">
+    <p>© 2025 Gurleen Kaur - Climate Solutions Project</p>
+  </footer>
+
+</body>
+</html>

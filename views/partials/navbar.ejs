@@ -1,0 +1,27 @@
+<div class="navbar bg-base-100 shadow-md">
+  <div class="flex-1">
+    <a class="btn btn-ghost normal-case text-xl" href="/">Climate Solutions</a>
+  </div>
+
+  <div class="flex-none">
+    <ul class="menu menu-horizontal px-1">
+      <li>
+        <a class="<%= (page == '/') ? 'active' : '' %>" href="/">Home</a>
+      </li>
+      <li>
+        <a class="<%= (page == '/about') ? 'active' : '' %>" href="/about">About</a>
+      </li>
+      <li tabindex="0">
+        <details>
+          <summary>Sector</summary>
+            <ul class="menu menu-horizontal px-1">
+            <li><a class="<%= (page == '/') ? 'active' : '' %>" href="/">Home</a></li>
+            <li><a class="<%= (page == '/solutions/projects') ? 'active' : '' %>" href="/solutions/projects">View Projects</a></li>
+            <li><a class="<%= (page == '/about') ? 'active' : '' %>" href="/about">About</a></li>
+          </ul>
+
+        </details>
+      </li>
+    </ul>
+  </div>
+</div>

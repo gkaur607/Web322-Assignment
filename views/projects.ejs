@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Projects - Climate Solutions</title>
+  <link href="/css/main.css" rel="stylesheet">
+</head>
+
+<body class="bg-base-200">
+
+  <!-- Navbar -->
+  <%- include('partials/navbar', { page: '/solutions/projects' }) %>
+
+  <div class="container mx-auto mt-10 px-4">
+
+    <!-- Hero Section -->
+    <div class="hero bg-base-100 rounded-xl shadow-lg mb-10">
+      <div class="hero-content text-center">
+        <div class="max-w-xl">
+          <h1 class="text-4xl font-bold mb-4">Projects</h1>
+          <p class="py-2 text-lg">
+            Explore all climate solution projects, or filter by sector below.
+          </p>
+          <div class="mt-4 space-x-2">
+            <a href="/solutions/projects?sector=Transportation" class="btn btn-outline btn-primary btn-sm">Transportation</a>
+            <a href="/solutions/projects?sector=Industry" class="btn btn-outline btn-primary btn-sm">Industry</a>
+            <a href="/solutions/projects?sector=Agriculture" class="btn btn-outline btn-primary btn-sm">Agriculture</a>
+            <a href="/solutions/projects" class="btn btn-primary btn-sm">All</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Projects Table -->
+    <% if (projects && projects.length > 0) { %>
+      <div class="overflow-x-auto">
+        <table class="table table-zebra w-full">
+          <thead>
+            <tr>
+              <th>Title</th>
+              <th>Sector</th>
+              <th>Summary</th>
+              <th>Details</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% projects.forEach(function(p) { %>
+            <tr class="hover">
+              <td><%= p.title %></td>
+              <td>
+                <a href="/solutions/projects?sector=<%= encodeURIComponent(p.sector) %>" 
+                  class="btn btn-sm btn-outline btn-primary">
+                  <%= p.sector%>
+                </a>
+              </td>
+              <td><%= p.summary_short %></td>
+              <td class="text-center">
+                <a href="/solutions/projects/<%= p.id %>" class="btn btn-primary btn-sm">Details</a>
+              </td>
+            </tr>
+            <% }); %>
+          </tbody>
+        </table>
+      </div>
+    <% } else { %>
+      <div class="text-center mt-10">
+        <p class="text-lg text-gray-600">No projects found for this sector.</p>
+      </div>
+    <% } %>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer footer-center p-4 bg-base-200 text-base-content mt-10">
+    <p>© 2025 Gurleen Kaur - Climate Solutions Project</p>
+  </footer>
+
+</body>
+</html>

@@ -1,50 +1,70 @@
 /********************************************************************************
-* WEB322 – Assignment 01
+* WEB322 – Assignment 02
 *
 * I declare that this assignment is my own work in accordance with Seneca's
 * Academic Integrity Policy:
 *
 * https://www.senecapolytechnic.ca/about/policies/academic-integrity-policy.html
 *
-* Name: ___Gurleen Kaur___ Student ID: ___153611231___ Date: ___2025-09-30___
+* Name: ___Gurleen Kaur___ Student ID: ___153611231___ Date: ___2025-11-09___
 *
 ********************************************************************************/
 
-const projectData = require("./modules/projects");
-
+const projects = require('./data/projectData.json');
+const path = require("path");
 const HTTP_PORT = process.env.PORT || 8080;
 
 const express = require("express");
 const app = express();
 
+app.use(express.static("public"));
+app.set("view engine", "ejs");
+app.set('views', __dirname + '/views');
+
+// Home Route
 app.get("/", (req, res) => {
-  res.send("Assignment 1: Gurleen Kaur-153611231");
+  res.render("home");
 });
 
-app.get("/solutions/projects", (req, res) => {
-  projectData.getAllProjects()
-    .then(data => res.json(data))
-    .catch(err => res.status(500).send(err));
+// About Route
+app.get("/about", (req, res) => {
+  res.render("about");
 });
 
-app.get("/solutions/projects/id-demo", (req, res) => {
-  projectData.getProjectById(9)
-    .then(project => res.json(project))
-    .catch(err => res.status(404).send(err));
-});
+// Projects Route
+app.get('/solutions/projects', (req, res) => {
+  const sector = req.query.sector;
+  let filtered = projects;
 
-app.get("/solutions/projects/sector-demo", (req, res) => {
-  projectData.getProjectsBySector("agriculture")
-    .then(projects => res.json(projects))
-    .catch(err => res.status(404).send(err));
-});
+  if (sector) {
+    filtered = projects.filter(
+      p => p.sector && p.sector.toLowerCase() === sector.toLowerCase()
+    );
+  }
 
-projectData.initialize()
-  .then(() => {
-    app.listen(HTTP_PORT, () => {
-      console.log(`Server listening on port ${HTTP_PORT}`);
-    });
-  })
-  .catch(err => {
-    console.error("Error", err);
+  res.render('projects', { 
+    page: '/solutions/projects', 
+    projects: filtered 
   });
+});
+
+// Single Project Route
+app.get("/solutions/projects/:id", (req, res) => {
+  const { id } = req.params;
+  const project = projects.find((p) => p.id == id);
+
+  if (!project) {
+    return res.status(404).render("404", { message: `Project with ID ${id} not found.` });
+  }
+
+  res.status(200).render("project", { project });
+});
+
+// Custom 404 Page
+app.use((req, res) => {
+  res.status(404).render("404");
+});
+
+app.listen(HTTP_PORT, () => {
+  console.log(`Server listening on port ${HTTP_PORT}`);
+});
