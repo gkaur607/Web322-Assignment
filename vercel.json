@@ -1,16 +1,12 @@
 {
-  "version": 2,
   "builds": [
-    {
-      "src": "server.js",
-      "use": "@vercel/node",
-      "config": { "includeFiles": ["dist/**"] }
-    }
+    { "src": "server.js", "use": "@vercel/node" },
+    { "src": "public/**/*", "use": "@vercel/static" }
   ],
   "routes": [
-    {
-      "src": "/(.*)",
-      "dest": "server.js"
-    }
-  ]
+    { "src": "/css/(.*)", "dest": "/public/css/$1" },
+    { "src": "/images/(.*)", "dest": "/public/images/$1" },
+    { "src": "/(.*)", "dest": "server.js" }
+  ],
+  "buildCommand": "npm run tw:build"
 }
