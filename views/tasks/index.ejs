@@ -1,0 +1,58 @@
+<%- include('../partials/header') %>
+
+<h2>My Tasks</h2>
+
+<div class="actions">
+  <a href="/tasks/add" class="btn">+ Add New Task</a>
+  <a href="/dashboard" class="btn">Back to Dashboard</a>
+</div>
+
+<% if (tasks.length === 0) { %>
+  <p>No tasks yet. <a href="/tasks/add">Create one!</a></p>
+<% } else { %>
+  <table class="tasks-table">
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th style="text-align: center;">Due Date</th>
+      <th style="text-align: center;">Status</th>
+      <th style="text-align: center;">Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% tasks.forEach(task => { %>
+      <tr>
+        <td>
+          <strong><%= task.title %></strong>
+          <% if (task.description) { %>
+            <p class="task-description"><%= task.description %></p>
+          <% } %>
+          <small class="task-meta">
+            Due: <%= task.dueDate ? new Date(task.dueDate).toLocaleDateString('en-CA') : 'No due date' %>
+          </small>
+        </td>
+        <td style="text-align: center; vertical-align: middle;">
+          <%= task.dueDate ? new Date(task.dueDate).toLocaleDateString('en-CA') : '—' %>
+        </td>
+        <td style="text-align: center; vertical-align: middle;">
+          <form action="/tasks/status/<%= task.id %>" method="POST" style="display:inline;">
+            <button type="submit" class="status-btn <%= task.status %>">
+              <%= task.status %>
+            </button>
+          </form>
+        </td>
+        <td style="text-align: center; vertical-align: middle;">
+          <form action="/tasks/delete/<%= task.id %>" method="POST" style="display:inline;">
+            <button type="submit" class="delete-btn" 
+                    onclick="return confirm('Delete this task?')">
+              Delete
+            </button>
+          </form>
+        </td>
+      </tr>
+    <% }) %>
+  </tbody>
+</table>
+<% } %>
+
+<%- include('../partials/footer') %>

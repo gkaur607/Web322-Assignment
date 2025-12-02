@@ -1,0 +1,27 @@
+<%- include('partials/header') %>
+
+<div class="dashboard">
+  <h2>Dashboard</h2>
+
+  <div class="stats-grid">
+    <div class="stat-card total">
+      <h3>Total Tasks</h3>
+      <p class="number"><%= total %></p>
+    </div>
+    <div class="stat-card completed">
+      <h3>Completed</h3>
+      <p class="number"><%= completed %></p>
+    </div>
+    <div class="stat-card pending">
+      <h3>Pending</h3>
+      <p class="number"><%= total - completed %></p>
+    </div>
+  </div>
+
+  <div class="dashboard-actions">
+    <a href="/tasks" class="btn large">View All Tasks</a>
+    <a href="/tasks/add" class="btn large primary">+ Add New Task</a>
+  </div>
+</div>
+
+<%- include('partials/footer') %>
