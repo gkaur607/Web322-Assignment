@@ -20,6 +20,7 @@ const connectMongo = async () => {
 
 const sequelize = new Sequelize(postgresUri, {
   dialect: 'postgres',
+  dialectModule: require("pg"),
   logging: false,
   dialectOptions: {
     ssl: {
