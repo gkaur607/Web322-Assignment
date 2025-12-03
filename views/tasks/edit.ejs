@@ -1,26 +1,51 @@
 <%- include('../partials/header') %>
-<h2>Edit Task</h2>
-<form action="/tasks/edit/<%= task.id %>" method="POST">
-  <div>
-    <label>Title:</label>
-    <input type="text" name="title" value="<%= task.title %>" required />
-  </div>
-  <div>
-    <label>Description:</label>
-    <textarea name="description"><%= task.description || '' %></textarea>
-  </div>
-  <div>
-    <label>Due Date:</label>
-    <input type="date" name="dueDate" value="<%= task.dueDate ? task.dueDate.toISOString().split('T')[0] : '' %>" />
-  </div>
-  <div>
-    <label>Status:</label>
-    <select name="status">
-      <option value="pending" <%= task.status === 'pending' ? 'selected' : '' %>>Pending</option>
-      <option value="completed" <%= task.status === 'completed' ? 'selected' : '' %>>Completed</option>
-    </select>
-  </div>
-  <button type="submit">Update Task</button>
-</form>
-<a href="/tasks">← Back to Tasks</a>
+
+<h2>My Tasks</h2>
+
+<a href="/tasks/add">+ Add New Task</a> | 
+<a href="/dashboard">Back to Dashboard</a>
+
+<table class="task-table">
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Due Date</th>
+      <th>Status</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% if (tasks.length === 0) { %>
+      <tr>
+        <td colspan="4">No tasks found</td>
+      </tr>
+    <% } else { %>
+      <% tasks.forEach(task => { %>
+        <tr>
+          <td><%= task.title %></td>
+
+          <td>
+            <%= task.dueDate ? task.dueDate.toISOString().split('T')[0] : '' %>
+          </td>
+
+          <td><%= task.status %></td>
+
+          <td>
+            <!-- Edit Button -->
+            <a class="btn-edit" href="/tasks/edit/<%= task.id %>">Edit</a>
+
+            <!-- Delete Button -->
+            <form action="/tasks/delete/<%= task.id %>" 
+                  method="POST" 
+                  style="display:inline;">
+              <button class="btn-delete" type="submit">Delete</button>
+            </form>
+          </td>
+        </tr>
+      <% }) %>
+    <% } %>
+  </tbody>
+</table>
+
 <%- include('../partials/footer') %>
