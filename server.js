@@ -63,12 +63,5 @@ async function startServer() {
   }
 }
 
-if (require.main === module) {
-  startServer().then(() => {
-    app.listen(PORT, () => {
-      console.log(`Server running on http://localhost:${PORT}`);
-    });
-  });
-} else {
-  startServer();  // For Vercel
-}
+startServer();
+module.exports = app;
