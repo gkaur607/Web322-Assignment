@@ -1,22 +1,56 @@
 <%- include('partials/header') %>
-<h2>Register</h2>
-<% if (error) { %>
-  <p class="error"><%= error %></p>
-<% } %>
-<form action="/register" method="POST">
-  <div>
-    <label>Username:</label>
-    <input type="text" name="username" required />
+
+<div class="auth-container">
+  <div class="auth-card">
+    <h2>Register</h2>
+
+    <% if (error) { %>
+      <div class="alert error"><%= error %></div>
+    <% } %>
+
+    <form action="/register" method="POST" class="auth-form">
+      <div class="form-group">
+        <label for="username">Username</label>
+        <input 
+          type="text" 
+          id="username" 
+          name="username" 
+          placeholder="Enter your username" 
+          required 
+          autofocus
+        >
+      </div>
+
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input 
+          type="email" 
+          id="email" 
+          name="email" 
+          placeholder="Enter your email" 
+          required
+        >
+      </div>
+
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input 
+          type="password" 
+          id="password" 
+          name="password" 
+          placeholder="Create a strong password" 
+          required
+        >
+      </div>
+
+      <button type="submit" class="btn full primary">Create Account</button>
+    </form>
+
+    <div class="auth-footer">
+      Already have an account? 
+      <a href="/login">Login here</a>
+    </div>
   </div>
-  <div>
-    <label>Email:</label>
-    <input type="email" name="email" required />
-  </div>
-  <div>
-    <label>Password:</label>
-    <input type="password" name="password" required />
-  </div>
-  <button type="submit">Register</button>
-</form>
-<p>Already have an account? <a href="/login">Login</a></p>
+</div>
+
 <%- include('partials/footer') %>

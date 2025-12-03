@@ -1,3 +1,14 @@
+/********************************************************************************
+ * WEB322 – Assignment 03
+ * 
+ * I declare that this assignment is my own work in accordance with Seneca's
+ * Academic Integrity Policy:
+ * 
+ * https://www.senecapolytechnic.ca/about/policies/academic-integrity-policy.html
+ * 
+ * Name: _____Gurleen Kaur______ Student ID: _____153611231______ Date: _____2025-12-02_______
+ ********************************************************************************/
+
 require('dotenv').config();
 
 const express = require('express');
@@ -11,9 +22,10 @@ const PORT = process.env.PORT || 8080;
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
-// Middleware
+// Critical Fix: Use absolute path for static files (Vercel fix)
+app.use(express.static(path.join(__dirname, 'public')));
+
 app.use(express.urlencoded({ extended: true }));
-app.use(express.static('public'));
 
 // Session setup
 app.use(session({
@@ -26,7 +38,7 @@ app.use(session({
   ephemeral: true
 }));
 
-// Make user available in all templates
+// Make user available in templates
 app.use((req, res, next) => {
   res.locals.user = req.session.user || null;
   next();
@@ -37,31 +49,27 @@ app.use('/', require('./routes/auth'));
 app.use('/', require('./routes/tasks'));
 
 app.get('/', (req, res) => {
-  if (req.session.user) {
-    res.redirect('/dashboard');
-  } else {
-    res.redirect('/login');
-  }
+  req.session.user ? res.redirect('/dashboard') : res.redirect('/login');
 });
 
-// 404 fallback
+// 404
 app.use((req, res) => {
   res.status(404).send('<h1>404 - Page Not Found</h1>');
 });
-
-module.exports = app;
 
 async function startServer() {
   try {
     await connectMongo();
     await connectPostgres();
-    
-    console.log('Server ready on Vercel');
+    app.listen(PORT, () => {
+      console.log(`Server running on port ${PORT}`);
+    });
   } catch (err) {
     console.error('Startup error:', err);
-    process.exit(1);  
+    process.exit(1);
   }
 }
 
 startServer();
+
 module.exports = app;
