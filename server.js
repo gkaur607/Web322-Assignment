@@ -6,7 +6,7 @@ const path = require('path');
 const { connectMongo, connectPostgres } = require('./config/db');
 
 const app = express();
-const PORT = process.env.PORT || 8080;  // Vercel fallback (not 3000)
+const PORT = process.env.PORT || 8080;
 
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));

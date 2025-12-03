@@ -41,13 +41,11 @@
             </button>
           </form>
         </td>
-        <td style="text-align: center; vertical-align: middle;">
-          <form action="/tasks/delete/<%= task.id %>" method="POST" style="display:inline;">
-            <button type="submit" class="delete-btn" 
-                    onclick="return confirm('Delete this task?')">
-              Delete
-            </button>
-          </form>
+        <td>
+            <a href="/tasks/edit/<%= task.id %>">Edit</a>
+            <form action="/tasks/delete/<%= task.id %>" method="POST" style="display:inline;">
+              <button type="submit" onclick="return confirm('Delete this task?')">Delete</button>
+            </form>
         </td>
       </tr>
     <% }) %>

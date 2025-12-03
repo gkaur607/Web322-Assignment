@@ -53,4 +53,15 @@ router.post('/tasks/status/:id', async (req, res) => {
   res.redirect('/tasks');
 });
 
+router.get('/tasks/edit/:id', async (req, res) => {
+  const task = await Task.findOne({ where: { id: req.params.id, userId: req.session.user.id } });
+  if (!task) return res.status(404).send('Not found');
+  res.render('tasks/edit', { task });
+});
+
+router.post('/tasks/edit/:id', async (req, res) => {
+  await Task.update(req.body, { where: { id: req.params.id, userId: req.session.user.id } });
+  res.redirect('/tasks');
+});
+
 module.exports = router;
