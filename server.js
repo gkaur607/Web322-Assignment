@@ -6,9 +6,8 @@ const path = require('path');
 const { connectMongo, connectPostgres } = require('./config/db');
 
 const app = express();
-const PORT = process.env.PORT || 8080;
+const PORT = process.env.PORT || 8080;  // Vercel fallback (not 3000)
 
-// View engine
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
@@ -50,13 +49,26 @@ app.use((req, res) => {
   res.status(404).send('<h1>404 - Page Not Found</h1>');
 });
 
-// Start server
-const start = async () => {
-  await connectMongo();
-  await connectPostgres();
-  app.listen(PORT, () => {
-    console.log(`Server running on http://localhost:${PORT}`);
-  });
-};
+module.exports = app;
 
-start();
+async function startServer() {
+  try {
+    await connectMongo();
+    await connectPostgres();
+    
+    console.log('Server ready on Vercel');
+  } catch (err) {
+    console.error('Startup error:', err);
+    process.exit(1);  
+  }
+}
+
+if (require.main === module) {
+  startServer().then(() => {
+    app.listen(PORT, () => {
+      console.log(`Server running on http://localhost:${PORT}`);
+    });
+  });
+} else {
+  startServer();  // For Vercel
+}
